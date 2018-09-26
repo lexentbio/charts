@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "signalfx-agent.fullname" . }}
+  namespace: {{ template "signalfx-agent.namespace" . }}
+  labels:
+    app: {{ template "signalfx-agent.name" . }}
+    version: {{ .Values.agentVersion }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ template "signalfx-agent.chart" . }}
+spec:
+  selector:
+    app: {{ template "signalfx-agent.name" . }}
+    release: {{ .Release.Name }}
+  ports:
+  - protocol: UDP
+    port: {{ default "8125" .Values.statsd.listenPort }}
+    targetPort: statsd

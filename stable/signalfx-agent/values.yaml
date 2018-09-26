@@ -103,6 +103,12 @@ gatherClusterMetrics: true
 # default.
 gatherDockerMetrics: true
 
+# If `enable` is set to true, enables statsd server monitor and exposes port on the port 8125 in daemonset.
+# Also creates a service exposing it to the other containers.
+# Additional options will be passed on to the `collectd/statsd` monitor.
+statsd:
+  enable: false
+
 # A list of metric names that are collected by monitors but are not to be sent
 # to SignalFx.  This default set include a lot of highly specific or duplicated
 # cAdvisor metrics that cause a large increase in DPM for little value for most

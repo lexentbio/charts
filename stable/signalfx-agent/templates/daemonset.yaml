@@ -87,6 +87,12 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
+        {{ if .Values.statsd.enable -}}
+        ports:
+        - name: statsd
+          protocol: UDP
+          containerPort: {{ default "8125" .Values.statsd.listenPort }}
+        {{- end }}
       volumes:
       - name: config
         configMap:

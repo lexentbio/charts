@@ -91,6 +91,13 @@ data:
          negated: true
     {{- end }}
 
+    {{ if .Values.statsd.enable -}}
+    - type: collectd/statsd
+      {{- if (omit .Values.statsd "enable") }}
+      {{ toYaml (omit .Values.statsd "enable") | indent 6 | trim }}
+      {{- end }}
+    {{- end }}
+
     {{ range .Values.monitors -}}
     - type: {{ .type }}
       {{- with .discoveryRule }}
